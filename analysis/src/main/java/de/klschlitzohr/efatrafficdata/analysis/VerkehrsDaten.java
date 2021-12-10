@@ -14,6 +14,7 @@ import de.klschlitzohr.efatrafficdata.api.database.repositories.SqlLineRepositor
 import de.klschlitzohr.efatrafficdata.api.database.repositories.SqlStationsRepository;
 import de.klschlitzohr.efatrafficdata.api.database.repositories.StationsRepository;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.ResultSet;
 import java.time.LocalTime;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
  * @author KlSchlitzohr
  */
 @Getter
+@Log4j2
 public class VerkehrsDaten {
 
     private final VerkehrsDatenConfiguration configuration;
@@ -85,8 +87,7 @@ public class VerkehrsDaten {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(stationsManager.getStations().size());
-            System.out.println(lineManager.getLines().size());
+            log.info("Stations: " + stationsManager.getStations().size() + " Lines: " + lineManager.getLines().size());
             if (stationsManager.getStations().size() == lastStationCount && lineManager.getLines().size() == lastLineCount) {
                 break;
             }
