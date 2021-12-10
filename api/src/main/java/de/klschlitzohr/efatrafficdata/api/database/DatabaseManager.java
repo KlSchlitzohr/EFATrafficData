@@ -37,8 +37,7 @@ public class DatabaseManager {
                 connection = mysqlDataSource.getConnection();
                 log.info("[WRITE] Connected to Database!");
             } catch (SQLException ex) {
-                log.error("[WRITE] Can't connect to database.");
-                ex.printStackTrace();
+                log.error("[WRITE] Can't connect to database.", ex);
                 System.exit(1);
             }
         }
@@ -50,8 +49,7 @@ public class DatabaseManager {
                 connection.close();
                 log.info("[WRITE] Disconnected from Database!");
             } catch (SQLException e) {
-                log.error("[WRITE] Can't disconnect from database.");
-                e.printStackTrace();
+                log.error("[WRITE] Can't disconnect from database.", e);
             }
             connection = null;
         }
@@ -61,7 +59,7 @@ public class DatabaseManager {
         try {
             return (connection != null) && !connection.isClosed();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return false;
     }
@@ -72,8 +70,7 @@ public class DatabaseManager {
             Statement statement = connection.createStatement();
             return statement.executeQuery(query);
         } catch (SQLException e) {
-            log.error("[WRITE] Result is faulty.");
-            e.printStackTrace();
+            log.error("[WRITE] Result is faulty.", e);
         }
         return null;
     }
@@ -84,8 +81,7 @@ public class DatabaseManager {
             Statement statement = connection.createStatement();
             return statement.executeUpdate(query);
         } catch (SQLException e) {
-            log.error("[WRITE] Result is faulty.");
-            e.printStackTrace();
+            log.error("[WRITE] Result is faulty.", e);
         }
         return 0;
     }

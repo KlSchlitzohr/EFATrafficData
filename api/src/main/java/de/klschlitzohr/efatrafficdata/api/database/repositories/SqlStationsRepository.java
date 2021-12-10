@@ -2,6 +2,7 @@ package de.klschlitzohr.efatrafficdata.api.database.repositories;
 
 import de.klschlitzohr.efatrafficdata.api.data.model.OwnStation;
 import de.klschlitzohr.efatrafficdata.api.database.DatabaseManager;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Map;
  *
  * @author DerMistkaefer
  */
+@Log4j2
 public class SqlStationsRepository implements StationsRepository {
 
     private final DatabaseManager databaseManager;
@@ -38,7 +40,7 @@ public class SqlStationsRepository implements StationsRepository {
                 stations.add(ownStation);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return stations;
     }
@@ -56,7 +58,7 @@ public class SqlStationsRepository implements StationsRepository {
                 ownStopID = resultSet.getInt("ownStopID");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return ownStopID;
     }
@@ -80,7 +82,7 @@ public class SqlStationsRepository implements StationsRepository {
                 stationManuelList.put(resultSetManuel.getString("nameWithPlace"), resultSetManuel.getInt("stopID"));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return stationManuelList;
     }

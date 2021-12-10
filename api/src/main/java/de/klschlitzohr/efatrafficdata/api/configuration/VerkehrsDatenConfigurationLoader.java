@@ -1,5 +1,7 @@
 package de.klschlitzohr.efatrafficdata.api.configuration;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.util.Properties;
  *
  * @author DerMistkaefer
  */
+@Log4j2
 public final class VerkehrsDatenConfigurationLoader {
 
     public static VerkehrsDatenConfiguration loadConfiguration(String configurationFile) {
@@ -17,12 +20,10 @@ public final class VerkehrsDatenConfigurationLoader {
         try (FileInputStream fis = new FileInputStream(configurationFile)) {
             prop.load(fis);
         } catch (FileNotFoundException ex) {
-            System.err.println("[CONFIGURATION] - The Configuration File '"+ configurationFile +"' could not be found.");
-            ex.printStackTrace();
+            log.error("[CONFIGURATION] - The Configuration File '"+ configurationFile +"' could not be found.", ex);
             System.exit(1);
         } catch (IOException ex) {
-            System.err.println("[CONFIGURATION] - Error Loading Configuration File '"+ configurationFile + "'. " + ex.getLocalizedMessage());
-            ex.printStackTrace();
+            log.error("[CONFIGURATION] - Error Loading Configuration File '"+ configurationFile + "'. " + ex.getLocalizedMessage(), ex);
             System.exit(1);
         }
 

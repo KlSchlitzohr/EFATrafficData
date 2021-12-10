@@ -111,7 +111,7 @@ public class LineManager {
             return LocalTime.parse((dateTime.getHour() <= 9 ? "0"+dateTime.getHour() : dateTime.getHour())
                     + ":" + (dateTime.getMinute() <= 9 ? "0" +dateTime.getMinute() : dateTime.getMinute()), formatter);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
             return null;
         }
     }
@@ -122,7 +122,7 @@ public class LineManager {
             return LocalDateTime.parse(dateTimeObj.getDate() + " " +
                     dateTimeObj.getTime(), formatter);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
             return null;
         }
     }
@@ -138,7 +138,7 @@ public class LineManager {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm");
             return LocalDateTime.parse(timeString, formatter);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
             return null;
         }
     }

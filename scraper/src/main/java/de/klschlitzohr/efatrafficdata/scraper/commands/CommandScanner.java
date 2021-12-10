@@ -26,11 +26,10 @@ public class CommandScanner {
 
     private void executeCommand(String command) {
         if (command.equalsIgnoreCase("stop")) {
-            log.info("Der server wird bald stoppen");
+            log.info("Der Server wird bald stoppen!");
             verkehrsDaten.setStop(true);
         } else {
-            System.out.println("Unnokwn command");
-            log.info("Unnokwn command");
+            log.info("Unknown command!");
         }
     }
 

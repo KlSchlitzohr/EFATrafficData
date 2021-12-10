@@ -5,6 +5,7 @@ import de.klschlitzohr.efatrafficdata.api.configuration.VerkehrsDatenConfigurati
 import de.klschlitzohr.efatrafficdata.scraper.Main;
 import de.klschlitzohr.efatrafficdata.scraper.exceptions.AuthorizationFailedException;
 import de.klschlitzohr.efatrafficdata.scraper.exceptions.RateLimitingExecption;
+import lombok.extern.log4j.Log4j2;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
@@ -14,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+@Log4j2
 public class HttpsRequestBuilder {
 
     private final String url;
@@ -24,7 +26,7 @@ public class HttpsRequestBuilder {
     private final VerkehrsDatenConfiguration verkehrsDatenConfiguration;
 
     public HttpsRequestBuilder(String url, HttpsRequestType httpsRequestType) {
-        System.out.println(url);
+        log.debug(url);
         this.url = url;
         this.httpsRequestType = httpsRequestType;
         verkehrsDatenConfiguration = Main.getVerkehrsDaten().getConfiguration();
@@ -56,10 +58,9 @@ public class HttpsRequestBuilder {
                 out.append(line);
             }
             int rc = manageResponseCode(connection);
-            //System.out.println(out.toString());
             return new HttpResponse(out.toString(),System.currentTimeMillis() - duration,rc);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return null;
     }
@@ -73,7 +74,7 @@ public class HttpsRequestBuilder {
                 throw new RateLimitingExecption();
             return responseCode;
         } catch (IOException | AuthorizationFailedException | RateLimitingExecption e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return 0;
     }

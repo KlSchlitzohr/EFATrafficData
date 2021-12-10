@@ -56,7 +56,7 @@ public class VerkehrsDaten {
                ownLines.add(new TempLine(lineManager.getOwnLinebyOwnId(resultSet.getInt("lineID")),resultSet.getInt("delay"),resultSet.getInt("count")));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         /*int allDelays = ownLines.stream().mapToInt(TempLine::getDelay).sum();
         int averageDelay = allDelays / ownLines.size();
@@ -85,7 +85,7 @@ public class VerkehrsDaten {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error(e);
             }
             log.info("Stations: " + stationsManager.getStations().size() + " Lines: " + lineManager.getLines().size());
             if (stationsManager.getStations().size() == lastStationCount && lineManager.getLines().size() == lastLineCount) {
@@ -102,7 +102,7 @@ public class VerkehrsDaten {
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error(e);
             }
         }*/
         readingGermanyData.getGrid().updateImage();

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration status="WARN" packages="org.apache.logging.log4j.core,io.sentry.log4j2">
     <Appenders>
         <Console name="Console">
-            <PatternLayout pattern="%d{dd.MM.yyyy - HH:mm:ss.SSS} [%t] %-5level %logger{16} - %msg%n"/>
+            <PatternLayout pattern="%highlight{%d{dd.MM.yyyy - HH:mm:ss.SSS} [%t] %-5level %logger{16} - %msg%n}" disableAnsi="false"/>
         </Console>
         <Telegram name="Telegram" botToken="" chatId="">
             <PatternLayout pattern="%-5level - %msg%n"/>
         </Telegram>
+        <Sentry name="Sentry" minimumBreadcrumbLevel="DEBUG" minimumEventLevel="ERROR"/>
     </Appenders>
     <Loggers>
         <Root level="DEBUG">
             <AppenderRef ref="Console" level="DEBUG"/>
             <AppenderRef ref="Telegram" level="INFO"/>
+            <AppenderRef ref="Sentry" level="DEBUG"/>
         </Root>
     </Loggers>
 </Configuration>

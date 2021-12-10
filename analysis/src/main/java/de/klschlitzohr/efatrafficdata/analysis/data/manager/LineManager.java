@@ -46,7 +46,7 @@ public class LineManager {
                         resultSet.getTime("startTime").toLocalTime()));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }*/
     }
 
@@ -61,7 +61,7 @@ public class LineManager {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm");
             return LocalDateTime.parse(timeString, formatter);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
             return null;
         }
     }

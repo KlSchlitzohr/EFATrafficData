@@ -1,6 +1,7 @@
 package de.klschlitzohr.efatrafficdata.analysis.utils;
 
 import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 @Getter
+@Log4j2
 public class ReadingGermanyData {
 
     private ArrayList<Point> pointsGermany;
@@ -26,12 +28,12 @@ public class ReadingGermanyData {
         double maxPointX = pointsGermany.stream().mapToDouble(Point::getX).max().getAsDouble();
         double minPointY = pointsGermany.stream().mapToDouble(Point::getY).min().getAsDouble();
         double maxPointY = pointsGermany.stream().mapToDouble(Point::getY).max().getAsDouble();
-        System.out.println("Min X: " + minPointX);
-        System.out.println("Max X: " + maxPointX);
-        System.out.println("Min Y: " + minPointY);
-        System.out.println("Max Y: " + maxPointY);
-        System.out.println(maxPointX - minPointX);
-        System.out.println(maxPointY - minPointY);
+        log.info("Min X: " + minPointX);
+        log.info("Max X: " + maxPointX);
+        log.info("Min Y: " + minPointY);
+        log.info("Max Y: " + maxPointY);
+        log.info(maxPointX - minPointX);
+        log.info(maxPointY - minPointY);
 
         double width = maxPointX - minPointX;
         double height = maxPointY - minPointY;
@@ -68,7 +70,7 @@ public class ReadingGermanyData {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return points;
     }

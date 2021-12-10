@@ -5,6 +5,7 @@ import de.klschlitzohr.efatrafficdata.api.data.model.OwnLine;
 import de.klschlitzohr.efatrafficdata.api.data.model.OwnLineStart;
 import de.klschlitzohr.efatrafficdata.api.data.model.OwnLineStop;
 import de.klschlitzohr.efatrafficdata.api.database.DatabaseManager;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ import java.util.Map;
  *
  * @author DerMistkaefer
  */
+@Log4j2
 public class SqlLineRepository implements LineRepository {
 
     private final DatabaseManager databaseManager;
@@ -48,7 +50,7 @@ public class SqlLineRepository implements LineRepository {
                 line.getOwnLineStops().add(parseLineStop(resultSet, "ls_"));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return new ArrayList<>(lines.values());
     }
@@ -64,7 +66,7 @@ public class SqlLineRepository implements LineRepository {
                         resultSet.getTime("startTime").toLocalTime()));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return linesStart;
     }
@@ -78,7 +80,7 @@ public class SqlLineRepository implements LineRepository {
                 ownLineStops.add(parseLineStop(resultSet, ""));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return ownLineStops;
     }
@@ -96,7 +98,7 @@ public class SqlLineRepository implements LineRepository {
                 delays.add(ownDelay);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return delays;
     }
@@ -115,7 +117,7 @@ public class SqlLineRepository implements LineRepository {
                 ownLineID = resultSet.getInt("ownLineID");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return ownLineID;
     }

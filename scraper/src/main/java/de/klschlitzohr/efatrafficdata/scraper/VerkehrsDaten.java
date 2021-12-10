@@ -99,14 +99,14 @@ public class VerkehrsDaten {
                 makeOneRound();
                 requestHandler.getXsltDepartureMonitorRequests().clear();
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e);
             }
             while ((lastrun + 1000*60) > System.currentTimeMillis()) {
                 log.debug("Waiting... " + System.currentTimeMillis() + " " + (lastrun + 1000*60));
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    log.error(e);
                 }
                 if (stop)
                     break;
@@ -230,11 +230,11 @@ public class VerkehrsDaten {
 
         // make requests
         for (TempStation tempStation : stations) {
-            System.out.println(stationsManager.getStationByOwnID(tempStation.getStationID()).getNameWithPlace() + " " + tempStation.getCount());
+            log.debug(stationsManager.getStationByOwnID(tempStation.getStationID()).getNameWithPlace() + " " + tempStation.getCount());
             try {
                 makeDepartureRequest(stationsManager.getStationByOwnID(tempStation.getStationID()).getStopID() + "");
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e);
             }
             requestHandler.checkTime();
             if (requestHandler.getRequestCountInLastMinute() > 140 || (start + 60*1000) < System.currentTimeMillis()) {
@@ -302,7 +302,7 @@ public class VerkehrsDaten {
 
     private void initSentry() {
         // Enable Sentry only in Prod. Prod did not use Windows so this hack will work.
-        boolean enableSentry = !System.getProperty("os.name").contains("Windows");
+        boolean enableSentry = true;
         if (enableSentry) {
             log.info("Init Sentry...");
             Sentry.init(options -> {
@@ -312,6 +312,7 @@ public class VerkehrsDaten {
                 options.setTracesSampleRate(1.0);
                 options.setSendDefaultPii(true);
             });
+            Sentry.captureException(new Exception("test"));
         }
     }
 }
