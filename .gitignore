@@ -2,6 +2,7 @@
 /target
 /VerkehrsDaten.iml
 
+analysis.config
 app.config
 **/target/
 **/dependency-reduced-pom.xml

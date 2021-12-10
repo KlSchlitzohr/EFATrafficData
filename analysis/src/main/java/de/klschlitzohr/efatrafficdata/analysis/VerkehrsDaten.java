@@ -39,7 +39,7 @@ public class VerkehrsDaten {
 
 
     public VerkehrsDaten() {
-        configuration = VerkehrsDatenConfigurationLoader.loadConfiguration("app.config");
+        configuration = VerkehrsDatenConfigurationLoader.loadConfiguration("analysis.config");
         databaseManager = new DatabaseManager(configuration.getDatabase());
         lineRepository = new SqlLineRepository(databaseManager);
         stationsRepository = new SqlStationsRepository(databaseManager);
