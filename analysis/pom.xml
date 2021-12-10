@@ -5,14 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.klschlitzohr</groupId>
-        <artifactId>EFATrafficData</artifactId>
+        <groupId>de.klschlitzohr.efatrafficdata</groupId>
+        <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>de.klschlitzohr</groupId>
     <artifactId>analysis</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>de.klschlitzohr.efatrafficdata</groupId>
+            <artifactId>api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     
 </project>

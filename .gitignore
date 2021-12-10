@@ -3,3 +3,5 @@
 /VerkehrsDaten.iml
 
 app.config
+**/target/
+**/dependency-reduced-pom.xml
