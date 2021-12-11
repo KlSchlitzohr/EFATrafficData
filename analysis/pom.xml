@@ -25,6 +25,11 @@
             <artifactId>processing-core-4</artifactId>
             <version>4.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.filosganga</groupId>
+            <artifactId>geogson-core</artifactId>
+            <version>1.4.31</version>
+        </dependency>
     </dependencies>
 
 </project>
