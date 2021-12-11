@@ -47,7 +47,7 @@ public class TelegramAppender extends AbstractAppender {
             return null;
         }
         var config = VerkehrsDatenConfigurationLoader.loadConfiguration(configurationFile);
-        var botToken = config.getTelegramChatId();
+        var botToken = config.getTelegramBotToken();
         var chatId = config.getTelegramChatId();
         if (botToken == null || botToken.trim().isEmpty()) {
             System.out.println("[log4j - TelegramAppender] No Bot Token was configured in Config '" + configurationFile + "'.");
