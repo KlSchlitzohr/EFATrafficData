@@ -48,4 +48,8 @@ public class OwnLine {
         log.debug("Add lineStop " + stateless + " " + name + " " + operator);
     }
 
+    public void setPath(String path, LineRepository lineRepository) {
+        lineRepository.insertPath(this, path);
+    }
+
 }

@@ -144,4 +144,9 @@ public class SqlLineRepository implements LineRepository {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         databaseManager.getUpdate("UPDATE lineDelays SET delay = '" + newDelay + "' WHERE lineID = '" + delay.getLineID() + "' AND linekey = '" + delay.getKey() + "' AND requestTime = '" + delay.getLocalDateTime().format(formatter) + "';");
     }
+
+    @Override
+    public void insertPath(OwnLine ownLine, String path) {
+        databaseManager.getUpdate("INSERT INTO linePaths VALUES ('" + ownLine.getOwnLineID() + "','" + path + "',CURRENT_DATE);");
+    }
 }

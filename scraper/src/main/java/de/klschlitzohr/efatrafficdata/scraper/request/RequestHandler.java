@@ -49,6 +49,6 @@ public class RequestHandler {
     }
 
     public int getRequestCountInLastMinute() {
-        return xmlStopFinderRequests.size() + xsltTripRequests.size() + xsltDepartureMonitorRequests.size();
+        return (xmlStopFinderRequests.size() / 3) + (xsltTripRequests.size() / 3) + xsltDepartureMonitorRequests.size();
     }
 }

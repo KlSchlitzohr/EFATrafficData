@@ -90,6 +90,7 @@ public class LineManager {
                         leg.getPoints().get(1).getRef().getId()).getOwnStopID(),
                         (int) ChronoUnit.MINUTES.between(startTime,getTimeFromStamp(leg.getPoints().get(1).getDateTime()))),
                         lineRepository);
+                ownLine.setPath(leg.getPath(), lineRepository);
                 for (Stop stop : leg.getStopSeq()) {
                     if (stop.getRef().getDepDateTime() == null)
                         continue;

@@ -24,4 +24,5 @@ public interface LineRepository {
     void insertLineStop(OwnLineStop lineStop);
     void insertLineDelay(OwnDelay delay);
     void updateLineDelay(OwnDelay delay, int newDelay);
+    void insertPath(OwnLine ownLine, String path);
 }
