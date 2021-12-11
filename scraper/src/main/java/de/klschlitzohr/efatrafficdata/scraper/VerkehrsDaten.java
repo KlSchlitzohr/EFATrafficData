@@ -302,7 +302,7 @@ public class VerkehrsDaten {
 
     private void initSentry() {
         // Enable Sentry only in Prod. Prod did not use Windows so this hack will work.
-        boolean enableSentry = true;
+        boolean enableSentry = !System.getProperty("os.name").contains("Windows");
         if (enableSentry) {
             log.info("Init Sentry...");
             Sentry.init(options -> {
@@ -312,7 +312,6 @@ public class VerkehrsDaten {
                 options.setTracesSampleRate(1.0);
                 options.setSendDefaultPii(true);
             });
-            Sentry.captureException(new Exception("test"));
         }
     }
 }

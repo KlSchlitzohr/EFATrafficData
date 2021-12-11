@@ -4,7 +4,7 @@
         <Console name="Console">
             <PatternLayout pattern="%highlight{%d{dd.MM.yyyy - HH:mm:ss.SSS} [%t] %-5level %logger{16} - %msg%n}" disableAnsi="false"/>
         </Console>
-        <Telegram name="Telegram" botToken="" chatId="">
+        <Telegram name="Telegram" configurationFile="app.config">
             <PatternLayout pattern="%-5level - %msg%n"/>
         </Telegram>
         <Sentry name="Sentry" minimumBreadcrumbLevel="DEBUG" minimumEventLevel="ERROR"/>

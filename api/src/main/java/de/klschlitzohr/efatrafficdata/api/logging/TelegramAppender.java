@@ -1,5 +1,6 @@
 package de.klschlitzohr.efatrafficdata.api.logging;
 
+import de.klschlitzohr.efatrafficdata.api.configuration.VerkehrsDatenConfigurationLoader;
 import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
@@ -39,15 +40,21 @@ public class TelegramAppender extends AbstractAppender {
             @PluginAttribute("name") String name,
             @PluginElement("Filter") Filter filter,
             @PluginElement("Layout") Layout<? extends Serializable> layout,
-            @PluginAttribute("botToken") String botToken,
-            @PluginAttribute("chatId") String chatId,
+            @PluginAttribute("configurationFile") String configurationFile,
             Property[] properties) {
-        if (botToken.trim().isEmpty()) {
-            System.out.println("[log4j - TelegramAppender] No Bot Token was configured.");
+        if (configurationFile.trim().isEmpty()) {
+            System.out.println("[log4j - TelegramAppender] No Configuration File was configured.");
             return null;
         }
-        if (chatId.trim().isEmpty()) {
-            System.out.println("[log4j - TelegramAppender] No Chat Id was configured.");
+        var config = VerkehrsDatenConfigurationLoader.loadConfiguration(configurationFile);
+        var botToken = config.getTelegramChatId();
+        var chatId = config.getTelegramChatId();
+        if (botToken == null || botToken.trim().isEmpty()) {
+            System.out.println("[log4j - TelegramAppender] No Bot Token was configured in Config '" + configurationFile + "'.");
+            return null;
+        }
+        if (chatId == null || chatId.trim().isEmpty()) {
+            System.out.println("[log4j - TelegramAppender] No Chat Id was configured in Config '" + configurationFile + "'.");
             return null;
         }
         return new TelegramAppender(name, filter, layout, true, properties, botToken, chatId);
