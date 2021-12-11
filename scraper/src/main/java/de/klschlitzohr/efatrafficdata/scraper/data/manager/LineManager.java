@@ -50,6 +50,18 @@ public class LineManager {
         linesStart = lineRepository.getAllLineStarts();
     }
 
+    public boolean lineIsInLifeCycle(OwnLine line) {
+        int lineMaxDelay = line.getOwnLineStops().stream().mapToInt(OwnLineStop::getDepartureDelay).max().orElse(0);
+        for (OwnLineStart lineStart : linesStart) {
+            if (lineStart.getLineID() == line.getOwnLineID()) {
+                if (ChronoUnit.MINUTES.between(lineStart.getStartTime(), LocalDateTime.now()) > 10)
+                    if (ChronoUnit.MINUTES.between(lineStart.getStartTime(), LocalDateTime.now()) > lineMaxDelay + 60)
+                        return true;
+            }
+        }
+        return false;
+    }
+
     public void addLineStarts(XSLTDM xsltdm) {
         for (Departure departure : xsltdm.getDepartureList()) {
             OwnStation directionFormStation = stationsManager.getStationByName(departure.getServingLine().getDirectionFrom());
