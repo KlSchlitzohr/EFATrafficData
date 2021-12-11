@@ -79,33 +79,17 @@ public class VerkehrsDaten {
     }
 
     public void test() {
-        int lastStationCount = 0;
-        int lastLineCount = 0;
-        while (true) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                log.error(e);
-            }
-            log.info("Stations: " + stationsManager.getStations().size() + " Lines: " + lineManager.getLines().size());
-            if (stationsManager.getStations().size() == lastStationCount && lineManager.getLines().size() == lastLineCount) {
-                break;
-            }
-            lastStationCount = stationsManager.getStations().size();
-            lastLineCount = lineManager.getLines().size();
-        }
+        log.info("Starting..");
         ReadingGermanyData readingGermanyData = new ReadingGermanyData();
+        log.info("Get Live Lines");
         ArrayList<TempLine> liveLines = getLiveLines();
-        readingGermanyData.getGrid().setOwnStationList(getLiveStations(liveLines));
-        readingGermanyData.getGrid().setOwnLinesList(getLiveLines());
-       /* while (true) {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                log.error(e);
-            }
-        }*/
+        log.info("Get Live Stations");
+        var liveStations = getLiveStations(liveLines);
+        log.info("Turn things up...");
+        readingGermanyData.getGrid().setOwnStationList(liveStations);
+        readingGermanyData.getGrid().setOwnLinesList(liveLines);
         readingGermanyData.getGrid().updateImage();
+        log.info("Done");
     }
 
     private LocalTime getLocalTime(LocalTime localTime) {

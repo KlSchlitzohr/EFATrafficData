@@ -31,7 +31,7 @@ public class LineManager {
         this.stationsManager = stationsManager;
         this.linesStart = new ArrayList<>();
         this.lines = new ArrayList<>();
-        new Thread(this::init).start();
+        this.init();
     }
 
     private void init() {
