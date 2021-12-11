@@ -23,10 +23,16 @@ public class XSLTTripRequest extends Request {
     private final String origin;
     private final String destination;
     private XSLTTRIP xslttrip;
+    private Date date;
 
     public XSLTTripRequest(String origin, String destination) {
         this.origin = origin;
         this.destination = destination;
+    }
+
+    public XSLTTripRequest setTime(Date time) {
+        date = time;
+        return this;
     }
 
     public XSLTTRIP request() {
@@ -40,6 +46,9 @@ public class XSLTTripRequest extends Request {
         }
 
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd HHmm");
+        if (date == null)
+            date = new Date(System.currentTimeMillis());
+
         String dateString = format.format(new Date(System.currentTimeMillis()));
         String[] args = dateString.split(" ");
         HttpResponse httpResponse = new HttpsRequestBuilder("https://www.vrn.de/service/entwickler/trias-json/XSLT_TRIP_REQUEST2?outputFormat=JSON&language=de/old&stateless=1&coordOutputFormat=WGS84[DD.ddddd]&coordOutputFormatTail=7&sessionID=0&requestID=0&coordListOutputFormat=string&type_origin=stop&name_origin=" + origin + "&type_destination=stop&name_destination=" + destination + "&itdDate=" + args[0] + "&itdTime=" + args[1] +"&itdTripDateTimeDepArr=dep&calcNumberOfTrips=6&ptOptionsActive=1&itOptionsActive=1&changeSpeed&useProxFootSearch=1&trITMOTvalue100=10&locationServerActive=1&useRealtime=1&nextDepsPerLeg=1", HttpsRequestType.GET).getResponse();
