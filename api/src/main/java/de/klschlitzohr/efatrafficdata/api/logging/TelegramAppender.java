@@ -15,6 +15,8 @@ import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.Serializable;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created on 10.12.2021
@@ -67,8 +69,10 @@ public class TelegramAppender extends AbstractAppender {
     }
 
     private void sendMessage(String message) {
+        String request = "";
         try {
-            final String request = String.format("%s%s/sendMessage?chat_id=%s&text=%s", BASE_URL, botToken, chatId, message);
+            final String encodedMessage = URLEncoder.encode(message, StandardCharsets.UTF_8.toString());
+            request = String.format("%s%s/sendMessage?chat_id=%s&text=%s", BASE_URL, botToken, chatId, encodedMessage);
             var url = new URL(request);
             var connection = (HttpsURLConnection) url.openConnection();
             var responseCode = connection.getResponseCode();
@@ -77,7 +81,7 @@ public class TelegramAppender extends AbstractAppender {
             }
         }
         catch (Exception ex){
-            error("[log4j - TelegramAppender] - Failed to Send Telegram Message - Exception", ex);
+            error(String.format("[log4j - TelegramAppender] - Failed to Send Telegram Message: Url: %s - Exception", request), ex);
         }
     }
 }

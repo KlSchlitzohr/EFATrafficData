@@ -2,10 +2,10 @@
 <Configuration status="WARN" packages="org.apache.logging.log4j.core,io.sentry.log4j2">
     <Appenders>
         <Console name="Console">
-            <PatternLayout pattern="%highlight{%d{dd.MM.yyyy - HH:mm:ss.SSS} [%t] %-5level %logger{16} - %msg%n}" disableAnsi="false"/>
+            <PatternLayout pattern="%highlight{%d{dd.MM.yyyy - HH:mm:ss.SSS} [%t] %-5level %logger{-3} - %msg%n}" disableAnsi="false"/>
         </Console>
         <Telegram name="Telegram" configurationFile="app.config">
-            <PatternLayout pattern="%-5level - %msg%n"/>
+            <PatternLayout pattern="%-5level - %msg%n" alwaysWriteExceptions="false"/>
         </Telegram>
         <Sentry name="Sentry" minimumBreadcrumbLevel="DEBUG" minimumEventLevel="ERROR"/>
     </Appenders>
