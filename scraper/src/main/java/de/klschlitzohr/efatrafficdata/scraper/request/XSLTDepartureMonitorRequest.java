@@ -28,6 +28,7 @@ public class XSLTDepartureMonitorRequest extends Request{
     }
 
     public XSLTDM request() {
+        log.debug("Requesting XSLTDepartureMonitor for stopID: " + stopID);
         getRequestHandler().checkTime();
         Main.getVerkehrsDaten().getDatabaseManager().getUpdate("INSERT INTO debug VALUES('0','" + stopID + "','0','0','null');");
         if (getRequestHandler().getXsltDepartureMonitorRequests().stream().

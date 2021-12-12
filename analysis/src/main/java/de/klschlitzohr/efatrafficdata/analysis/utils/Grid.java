@@ -97,6 +97,8 @@ public class Grid {
 
     private void drawNeurons() {
         graphics2D.setStroke(new BasicStroke(1));
+        graphics2D.setColor(new Color(255,0,255));
+        graphics2D.drawRect(toFlat(7.2,true),toFlat(48.9,false),toFlat(8.6,true),toFlat(49.9,false));
         graphics2D.setColor(new Color(0,0,255));
         for (ArrayList<FlatPoint> flatPointList : getFlatRandPoints()) {
             FlatPoint lastPoint = null;

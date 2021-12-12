@@ -121,7 +121,12 @@ public class VerkehrsDaten {
         // Prioritize lines
         long start = System.currentTimeMillis();
         List<OwnStation> stationsInRegion = getStationsInRegion();
+        Collections.shuffle(stationsInRegion);
         ArrayList<TempStation> stations = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            stations.add(new TempStation(stationsInRegion.get(i).getOwnStopID(),1000));
+        }
+        log.debug("Stations in region: " + stations.size());
         for (OwnLine ownLine : lineManager.getLines()) {
             OwnLineStop lastLineStop = ownLine.getOwnLineStops().stream().max(Comparator.comparingInt(OwnLineStop::getDepartureDelay)).get();
             if (stationsInRegion.stream().noneMatch(station -> station.getOwnStopID() == lastLineStop.getStopID()))
@@ -230,7 +235,6 @@ public class VerkehrsDaten {
 
         // make requests
         for (TempStation tempStation : stations) {
-            log.debug(stationsManager.getStationByOwnID(tempStation.getStationID()).getNameWithPlace() + " " + tempStation.getCount());
             try {
                 makeDepartureRequest(stationsManager.getStationByOwnID(tempStation.getStationID()).getStopID() + "");
             } catch (Exception e) {
@@ -238,6 +242,8 @@ public class VerkehrsDaten {
             }
             requestHandler.checkTime();
             if (requestHandler.getRequestCountInLastMinute() > 140 || (start + 60*1000) < System.currentTimeMillis()) {
+                if (requestHandler.getRequestCountInLastMinute() > 140)
+                    log.debug("Request count BREAK: " + requestHandler.getRequestCountInLastMinute());
                 break;
             }
             if (stop)
@@ -246,12 +252,11 @@ public class VerkehrsDaten {
     }
 
     public List<OwnStation> getStationsInRegion() {
-        return stationsManager.getStations().stream().filter(station -> station.getX() > 7.4 && station.getX() < 8.7)
-                .filter(station -> station.getY() < 49.700 && station.getY() > 49.2).collect(Collectors.toList());
+        return stationsManager.getStations().stream().filter(station -> station.getX() > 7.2 && station.getX() < 8.6)
+                .filter(station -> station.getY() < 49.800 && station.getY() > 48.9).collect(Collectors.toList());
     }
 
     public void makeDepartureRequest(String id) {
-        log.debug("Start with id " + id);
         XSLTDM xsltDepartureMonitorRequest = new XSLTDepartureMonitorRequest(id).request();
         stationsManager.add(xsltDepartureMonitorRequest);
         for (Departure departure : xsltDepartureMonitorRequest.getDepartureList()) {

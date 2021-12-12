@@ -36,6 +36,7 @@ public class XSLTTripRequest extends Request {
     }
 
     public XSLTTRIP request() {
+        log.debug("Requesting XSLTrip for " + origin + " to " + destination);
         getRequestHandler().checkTime();
         Main.getVerkehrsDaten().getDatabaseManager().getUpdate("INSERT INTO debug VALUES('0','0','" + origin + "','" + destination + "','null');");
         if (getRequestHandler().getXsltTripRequests().stream().

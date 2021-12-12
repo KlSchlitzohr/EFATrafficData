@@ -26,7 +26,6 @@ public class HttpsRequestBuilder {
     private final VerkehrsDatenConfiguration verkehrsDatenConfiguration;
 
     public HttpsRequestBuilder(String url, HttpsRequestType httpsRequestType) {
-        log.debug(url);
         this.url = url;
         this.httpsRequestType = httpsRequestType;
         verkehrsDatenConfiguration = Main.getVerkehrsDaten().getConfiguration();

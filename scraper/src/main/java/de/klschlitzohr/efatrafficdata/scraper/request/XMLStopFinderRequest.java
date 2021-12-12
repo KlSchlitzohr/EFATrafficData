@@ -25,6 +25,7 @@ public class XMLStopFinderRequest extends Request {
     }
 
     public XMLSTOPFINDER request() {
+        log.debug("Requesting XMLStopFinder for location: " + location);
         getRequestHandler().checkTime();
         Main.getVerkehrsDaten().getDatabaseManager().getUpdate("INSERT INTO debug VALUES('0','0','0','0','" + location + "');");
         if (getRequestHandler().getXmlStopFinderRequests().stream().
