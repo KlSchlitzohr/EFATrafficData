@@ -123,8 +123,6 @@ public class VerkehrsDaten {
         List<OwnStation> stationsInRegion = getStationsInRegion();
         ArrayList<TempStation> stations = new ArrayList<>();
         for (OwnLine ownLine : lineManager.getLines()) {
-            if (!lineManager.lineIsInLifeCycle(ownLine))
-                return;
             OwnLineStop lastLineStop = ownLine.getOwnLineStops().stream().max(Comparator.comparingInt(OwnLineStop::getDepartureDelay)).get();
             if (stationsInRegion.stream().noneMatch(station -> station.getOwnStopID() == lastLineStop.getStopID()))
                 continue;
@@ -135,8 +133,6 @@ public class VerkehrsDaten {
         }
 
         for (OwnLine ownLine : lineManager.getLines()) {
-            if (!lineManager.lineIsInLifeCycle(ownLine))
-                return;
             for (OwnLineStop ownLineStop : ownLine.getOwnLineStops()) {
                 if (stationsInRegion.stream().noneMatch(station -> station.getOwnStopID() == ownLineStop.getStopID()))
                     continue;
