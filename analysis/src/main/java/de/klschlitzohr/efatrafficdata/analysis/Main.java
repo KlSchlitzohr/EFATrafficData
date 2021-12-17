@@ -1,6 +1,7 @@
 package de.klschlitzohr.efatrafficdata.analysis;
 
 import lombok.Getter;
+import org.springframework.boot.SpringApplication;
 import processing.core.PApplet;
 
 public class Main {
@@ -12,6 +13,7 @@ public class Main {
         //PApplet.main(Processing.class.getName());
         verkehrsDaten = new VerkehrsDaten();
         verkehrsDaten.test();
+        //SpringApplication.run(AnalysisApplication.class, args);
     }
 
 }

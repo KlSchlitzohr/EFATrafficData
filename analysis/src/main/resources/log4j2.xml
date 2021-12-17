@@ -2,7 +2,7 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console">
-            <PatternLayout pattern="%highlight{%d{dd.MM.yyyy - HH:mm:ss.SSS} [%t] %-5level %logger{16} - %msg%n}" disableAnsi="false"/>
+            <PatternLayout pattern="%highlight{%d{dd.MM.yyyy - HH:mm:ss.SSS} [%t] %-5level %logger{-3} - %msg%n}" disableAnsi="false"/>
         </Console>
     </Appenders>
     <Loggers>

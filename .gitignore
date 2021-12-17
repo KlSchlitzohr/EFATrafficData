@@ -1,8 +1,14 @@
 /.idea
-/target
-/VerkehrsDaten.iml
 
-analysis.config
-app.config
+# Build Output
 **/target/
 **/dependency-reduced-pom.xml
+
+# Frontend Things
+**/node
+**/node_modules
+
+# Configs
+analysis.config
+app.config
+

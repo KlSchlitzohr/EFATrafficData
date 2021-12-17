@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "noImplicitAny": true,
+    "outFile": "../../../target/classes/public/build.js",
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "rootDir": "./Controllers/",
+    "sourceMap": true,
+    "target": "es5",
+    "moduleResolution": "node",
+  }
+}
