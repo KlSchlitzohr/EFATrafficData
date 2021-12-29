@@ -5,6 +5,7 @@ import de.klschlitzohr.efatrafficdata.api.data.model.OwnLine;
 import de.klschlitzohr.efatrafficdata.api.data.model.OwnLineStart;
 import de.klschlitzohr.efatrafficdata.api.data.model.OwnLineStop;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public interface LineRepository {
     List<OwnLineStart> getAllLineStarts();
     ArrayList<OwnLineStop> getLineStopsByLineId(int ownLineID);
     List<OwnDelay> getAllLineDelays();
+    List<OwnDelay> getLineDelaysFromTo(LocalDateTime start, LocalDateTime end);
     int insertLine(OwnLine line);
     void insertLineStart(OwnLineStart lineStart);
     void insertLineStop(OwnLineStop lineStop);

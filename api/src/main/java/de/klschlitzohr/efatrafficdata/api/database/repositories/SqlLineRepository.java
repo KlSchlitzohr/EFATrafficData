@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,6 +90,21 @@ public class SqlLineRepository implements LineRepository {
     public List<OwnDelay> getAllLineDelays() {
         ArrayList<OwnDelay> delays = new ArrayList<>();
         ResultSet resultSet = databaseManager.getResult("SELECT * FROM lineDelays;");
+        lineDelays(delays, resultSet);
+        return delays;
+    }
+
+    @Override
+    public List<OwnDelay> getLineDelaysFromTo(LocalDateTime start, LocalDateTime end) {
+        ArrayList<OwnDelay> delays = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ResultSet resultSet = databaseManager.getResult("SELECT * FROM lineDelays WHERE requestTime >= '"
+                + start.format(formatter) + "' AND requestTime <= '" + end.format(formatter) + "';");
+        lineDelays(delays, resultSet);
+        return null;
+    }
+
+    private void lineDelays(ArrayList<OwnDelay> delays, ResultSet resultSet) {
         try {
             while (resultSet.next()) {
                 OwnDelay ownDelay = new OwnDelay(resultSet.getInt("lineID"),
@@ -100,7 +116,6 @@ public class SqlLineRepository implements LineRepository {
         } catch (Exception e) {
             log.error(e);
         }
-        return delays;
     }
 
     private OwnLineStop parseLineStop(ResultSet resultSet, String prefix) throws SQLException {
