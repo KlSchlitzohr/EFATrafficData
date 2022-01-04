@@ -5,6 +5,7 @@ import de.klschlitzohr.efatrafficdata.api.database.repositories.LineRepository;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,12 +22,11 @@ public class DelayManager {
         this.lineRepository = lineRepository;
         this.lineManager = lineManager;
         this.delays = Collections.synchronizedList(new ArrayList<>());
-        init();
     }
 
-    private void init() {
+    public void init(LocalDateTime start, LocalDateTime end) {
         log.info("Loading Delays");
-        delays = lineRepository.getAllLineDelays();
+        delays = lineRepository.getLineDelaysFromTo(start, end);
     }
 
 }

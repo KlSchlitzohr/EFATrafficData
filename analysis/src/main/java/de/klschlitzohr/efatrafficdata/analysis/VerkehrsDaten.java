@@ -50,10 +50,12 @@ public class VerkehrsDaten {
 
     public ArrayList<TempLine> getLiveLines() {
         ArrayList<TempLine> ownLines = new ArrayList<>();
-        ResultSet resultSet = databaseManager.getResult("SELECT lineID, SUM(delay) AS delay, COUNT(lineID) AS count FROM `lineDelays` GROUP By lineID ");
+        ResultSet resultSet = databaseManager.getResult("SELECT lineID, SUM(delay) AS delay, COUNT(lineID) AS count, requestTime FROM `lineDelays` WHERE requestTime > '2021-12-17' GROUP By lineID ");
         try {
             while (resultSet.next()) {
-               ownLines.add(new TempLine(lineManager.getOwnLinebyOwnId(resultSet.getInt("lineID")),resultSet.getInt("delay"),resultSet.getInt("count")));
+               int count = resultSet.getInt("count");
+               if (count > 100)
+               ownLines.add(new TempLine(lineManager.getOwnLinebyOwnId(resultSet.getInt("lineID")),resultSet.getInt("delay"),count));
             }
         } catch (Exception e) {
             log.error(e);

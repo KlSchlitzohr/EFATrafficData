@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,10 @@ public class LineManager {
 
     public OwnLine getOwnLinebyOwnId(int ownId) {
         return lines.stream().filter(line -> line.getOwnLineID() == ownId).findAny().orElse(null);
+    }
+
+    public LocalTime getLocalTimeByOwnId(int ownId, int key) {
+        return linesStart.stream().filter(line -> line.getLineID() == ownId && line.getKey() == key).findAny().orElse(null).getStartTime();
     }
 
 }

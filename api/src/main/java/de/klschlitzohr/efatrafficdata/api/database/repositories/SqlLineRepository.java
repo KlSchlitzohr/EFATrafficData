@@ -101,7 +101,7 @@ public class SqlLineRepository implements LineRepository {
         ResultSet resultSet = databaseManager.getResult("SELECT * FROM lineDelays WHERE requestTime >= '"
                 + start.format(formatter) + "' AND requestTime <= '" + end.format(formatter) + "';");
         lineDelays(delays, resultSet);
-        return null;
+        return delays;
     }
 
     private void lineDelays(ArrayList<OwnDelay> delays, ResultSet resultSet) {

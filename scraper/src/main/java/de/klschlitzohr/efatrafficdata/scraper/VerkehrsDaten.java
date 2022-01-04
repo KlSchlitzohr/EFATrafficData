@@ -82,7 +82,7 @@ public class VerkehrsDaten {
     }
 
     public void test() {
-        XSLTDM xsltdm = new XSLTDepartureMonitorRequest("6005461").request();
+        XSLTDM xsltdm = new XSLTDepartureMonitorRequest("6094527").request();
         stationsManager.add(xsltdm);
     }
 
@@ -172,7 +172,7 @@ public class VerkehrsDaten {
         }
         log.debug("Stations Anders: " + stations.size());
 
-        for (TempStation tempStation : stationsClone) {
+       /* for (TempStation tempStation : stationsClone) {
             for (TempStation tempStation1 : stationsClone) {
                 if (tempStation.getStationID() == tempStation1.getStationID()) {
                     continue;
@@ -208,7 +208,7 @@ public class VerkehrsDaten {
                     stations.remove(tempStation);
                 }
             }
-        }
+        }*/
         log.debug("Stations: " + stations.size());
 
         // Remove Stations if they are already conatined in the list
