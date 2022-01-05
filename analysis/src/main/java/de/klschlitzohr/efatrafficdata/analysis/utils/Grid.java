@@ -1,6 +1,5 @@
 package de.klschlitzohr.efatrafficdata.analysis.utils;
 
-import de.klschlitzohr.efatrafficdata.analysis.Main;
 import de.klschlitzohr.efatrafficdata.analysis.data.manager.StationsManager;
 import de.klschlitzohr.efatrafficdata.api.data.model.OwnLine;
 import de.klschlitzohr.efatrafficdata.api.data.model.OwnLineStop;
@@ -41,14 +40,14 @@ public class Grid {
     @Setter
     private ArrayList<TempLine> ownLinesList;
 
-    public Grid(ArrayList<ArrayList<Point>> stationList, double width, double height, double minX, double minY) {
+    public Grid(ArrayList<ArrayList<Point>> stationList, double width, double height, double minX, double minY,StationsManager stationsManager) {
         this.frame = new JFrame();
         this.randPointsList = stationList;
         this.width = width * 1.5;
         this.height = height * 1.2 * 1.5 / 1.5;
         this.minX = minX;
         this.minY = minY;
-        this.stationsManager = Main.getVerkehrsDaten().getStationsManager();
+        this.stationsManager = stationsManager;
     }
 
     public ArrayList<FlatPoint> getFlatStation() {

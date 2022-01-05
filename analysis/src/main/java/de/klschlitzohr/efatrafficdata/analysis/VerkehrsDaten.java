@@ -82,7 +82,7 @@ public class VerkehrsDaten {
 
     public void test() {
         log.info("Starting..");
-        ReadingGermanyData readingGermanyData = new ReadingGermanyData();
+        ReadingGermanyData readingGermanyData = new ReadingGermanyData(stationsManager);
         log.info("Get Live Lines");
         ArrayList<TempLine> liveLines = getLiveLines();
         log.info("Get Live Stations");

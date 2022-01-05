@@ -7,6 +7,7 @@ import com.github.filosganga.geogson.model.Polygon;
 import com.github.filosganga.geogson.model.positions.AbstractPositions;
 import com.github.filosganga.geogson.model.positions.LinearPositions;
 import com.google.gson.GsonBuilder;
+import de.klschlitzohr.efatrafficdata.analysis.data.manager.StationsManager;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
@@ -22,9 +23,11 @@ public class ReadingGermanyData {
 
     private ArrayList<Point> pointsGermany;
     private Grid grid;
+    private StationsManager stationsManager;
 
-    public ReadingGermanyData() {
+    public ReadingGermanyData(StationsManager stationsManager) {
         pointsGermany = new ArrayList<>();
+        this.stationsManager = stationsManager;
         readFiles();
     }
 
@@ -57,7 +60,7 @@ public class ReadingGermanyData {
 
         log.info("Finished get points");
 
-        grid = new Grid(pointsList, width, height,minPointX,minPointY);
+        grid = new Grid(pointsList, width, height,minPointX,minPointY,stationsManager);
     }
 
     private FeatureCollection getFeatureCollection(String url) {

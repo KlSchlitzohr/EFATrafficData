@@ -23,7 +23,7 @@ import java.util.Optional;
 public class LineManager {
 
     private List<OwnLine> lines;
-    private final List<OwnLineStart> linesStart;
+    private List<OwnLineStart> linesStart;
     private final LineRepository lineRepository;
     private final StationsManager stationsManager;
 
@@ -38,6 +38,7 @@ public class LineManager {
     private void init() {
         log.info("Loading Lines");
         lines = lineRepository.getAllLinesWithStops();
+        linesStart = lineRepository.getAllLineStarts();
 
         /*resultSet = databaseManager.getResult("SELECT * FROM lineStarts;");
         try {
@@ -72,7 +73,10 @@ public class LineManager {
     }
 
     public LocalTime getLocalTimeByOwnId(int ownId, int key) {
-        return linesStart.stream().filter(line -> line.getLineID() == ownId && line.getKey() == key).findAny().orElse(null).getStartTime();
+        if (linesStart.stream().anyMatch(lineStart -> lineStart.getLineID() == ownId && lineStart.getKey() == key))
+            return linesStart.stream().filter(line -> line.getLineID() == ownId && line.getKey() == key).findAny().get().getStartTime();
+        else
+            return null;
     }
 
 }

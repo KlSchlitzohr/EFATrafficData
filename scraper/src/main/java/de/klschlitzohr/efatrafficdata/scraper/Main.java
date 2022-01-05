@@ -19,8 +19,8 @@ public class Main {
         verkehrsDaten.init();
         log.info("Done");
 
-        //verkehrsDaten.loop();
-        verkehrsDaten.test();
+        verkehrsDaten.loop();
+        //verkehrsDaten.test();
         log.info("STOP");
     }
 

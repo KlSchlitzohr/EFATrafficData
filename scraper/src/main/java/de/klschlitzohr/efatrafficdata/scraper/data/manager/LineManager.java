@@ -59,7 +59,7 @@ public class LineManager {
                 continue;
             OwnLine ownLine = getLineByStatless(departure.getServingLine().getStateless());
             if (ownLine != null) {
-                if (linesStart.stream().noneMatch(linesStart -> linesStart.getKey() == departure.getServingLine().getKey())) {
+                if (linesStart.stream().noneMatch(linesStart -> linesStart.getKey() == departure.getServingLine().getKey() && linesStart.getLineID() == ownLine.getOwnLineID())) {
                     OwnLineStart ownLineStart = new OwnLineStart(ownLine.getOwnLineID(), departure.getServingLine().getKey(), getTimeByDateTime(departure.getDateTime()));
                     log.debug("Add LINE START "+ ownLineStart.getLineID() + " " + ownLineStart.getKey() + " " + ownLineStart.getStartTime().toString());
                     lineRepository.insertLineStart(ownLineStart);
