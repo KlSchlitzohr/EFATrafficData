@@ -111,7 +111,9 @@ public class VerkehrsDaten {
                 if (stop)
                     break;
             }
-            log.info("LOOP Baby");
+            if (Math.random() < 0.1) {
+                log.info("LOOP Baby");
+            }
         }
         System.exit(0);
     }

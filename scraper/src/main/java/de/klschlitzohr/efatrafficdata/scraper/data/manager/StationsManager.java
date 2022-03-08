@@ -82,6 +82,8 @@ public class StationsManager {
         if (xsltdm == null)
             return;
         ItdOdvAssignedStops odvAssignedStops = xsltdm.getDm().getItdOdvAssignedStops();
+        if (odvAssignedStops == null)
+            return;
         int stopID = odvAssignedStops.getStopID();
         Optional<OwnStation> ownStation = stations.stream().filter(station -> station.getStopID() == stopID).findAny();
         if (ownStation.isEmpty()) {

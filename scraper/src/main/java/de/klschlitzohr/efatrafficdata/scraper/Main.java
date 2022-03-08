@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         verkehrsDaten = new VerkehrsDaten();
         verkehrsDaten.init();
-        log.info("Done");
+        log.info("Done!");
 
         verkehrsDaten.loop();
         //verkehrsDaten.test();
